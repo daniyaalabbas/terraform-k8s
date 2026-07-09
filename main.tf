@@ -1,5 +1,4 @@
 resource "kubernetes_deployment" "my_k8s_web" {
-
   metadata {
     name = "my-k8s-web"
 
@@ -9,7 +8,6 @@ resource "kubernetes_deployment" "my_k8s_web" {
   }
 
   spec {
-
     replicas = var.replicas
 
     selector {
@@ -19,7 +17,6 @@ resource "kubernetes_deployment" "my_k8s_web" {
     }
 
     template {
-
       metadata {
         labels = {
           app = "my-k8s-web"
@@ -27,13 +24,9 @@ resource "kubernetes_deployment" "my_k8s_web" {
       }
 
       spec {
-
         container {
-
-          name = "my-k8s-web"
-
-          image = var.image
-
+          name              = "my-k8s-web"
+          image             = var.image
           image_pull_policy = "Always"
 
           port {
@@ -42,5 +35,24 @@ resource "kubernetes_deployment" "my_k8s_web" {
         }
       }
     }
+  }
+}
+
+resource "kubernetes_service" "my_k8s_web_service" {
+  metadata {
+    name = "my-k8s-web-service"
+  }
+
+  spec {
+    selector = {
+      app = "my-k8s-web"
+    }
+
+    port {
+      port        = 5000
+      target_port = 5000
+    }
+
+    type = "NodePort"
   }
 }
