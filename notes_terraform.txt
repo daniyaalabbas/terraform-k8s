@@ -1,0 +1,214 @@
+Terraform Commands Notes
+1. Check Terraform Version
+terraform version
+Purpose
+
+Checks whether Terraform is installed and displays the installed version.
+
+Output Example
+Terraform v1.15.8
+Interview Answer
+
+We use terraform version to verify that Terraform is installed correctly and to check the version before starting a project.
+
+2. Initialize Terraform
+terraform init
+Purpose
+
+Initializes the Terraform working directory.
+
+It performs the following:
+
+Downloads required providers
+Creates the .terraform directory
+Creates .terraform.lock.hcl
+Output Example
+Initializing provider plugins...
+Terraform has been successfully initialized!
+Interview Answer
+
+terraform init is the first command we run. It downloads the required provider plugins (like Kubernetes or AWS) and prepares the working directory.
+
+3. Validate Configuration (Recommended)
+terraform validate
+Purpose
+
+Checks whether your Terraform configuration is syntactically correct.
+
+It does not create any resources.
+
+Example Output
+Success! The configuration is valid.
+Interview Answer
+
+terraform validate verifies the syntax of Terraform files before applying them.
+
+4. View Execution Plan
+terraform plan
+Purpose
+
+Shows what Terraform will create, modify, or destroy.
+
+No changes are actually made.
+
+Example
+Plan: 2 to add, 0 to change, 0 to destroy.
+Interview Answer
+
+terraform plan previews the infrastructure changes so we can review them before applying.
+
+5. Apply Configuration
+terraform apply
+Purpose
+
+Creates or updates infrastructure according to the Terraform configuration.
+
+Terraform asks for confirmation.
+
+Example:
+
+Enter a value:
+
+Type
+
+yes
+Interview Answer
+
+terraform apply creates or updates infrastructure and records the resources in the Terraform state file.
+
+6. Auto Approve Apply
+terraform apply -auto-approve
+Purpose
+
+Runs Terraform without asking for confirmation.
+
+Mostly used in CI/CD pipelines.
+
+Interview Answer
+
+In automation like GitHub Actions or Jenkins, we use -auto-approve because no one is available to type "yes".
+
+7. Show Current State
+terraform show
+Purpose
+
+Displays all resources currently managed by Terraform.
+
+Interview Answer
+
+terraform show displays the current Terraform state in a human-readable format.
+
+8. List Managed Resources
+terraform state list
+Purpose
+
+Lists all resources Terraform currently manages.
+
+Example
+
+kubernetes_deployment.my_k8s_web
+kubernetes_service.my_k8s_web_service
+Interview Answer
+
+It shows every resource stored in the Terraform state file.
+
+9. Destroy Infrastructure
+terraform destroy
+Purpose
+
+Deletes all infrastructure managed by Terraform.
+
+Terraform asks for confirmation.
+
+Example
+
+Enter a value:
+yes
+Interview Answer
+
+terraform destroy removes all resources created by Terraform.
+
+10. Destroy Without Confirmation
+terraform destroy -auto-approve
+Purpose
+
+Deletes resources without prompting for confirmation.
+
+Mostly used in automated environments.
+
+11. Format Terraform Files
+terraform fmt
+Purpose
+
+Automatically formats .tf files according to Terraform standards.
+
+Interview Answer
+
+terraform fmt improves readability and ensures consistent formatting.
+
+12. Import Existing Resources
+
+Example
+
+terraform import kubernetes_deployment.my_k8s_web default/my-k8s-web
+Purpose
+
+Imports an existing Kubernetes deployment into Terraform state.
+
+Interview Answer
+
+If resources already exist, we use terraform import so Terraform can manage them without recreating them.
+
+13. Refresh State
+terraform refresh
+Purpose
+
+Updates Terraform state to match the current infrastructure.
+
+Note: In newer Terraform versions, refresh is integrated into plan and apply.
+
+14. Output Values
+terraform output
+Purpose
+
+Displays values defined in outputs.tf.
+
+Example
+
+service_name = my-k8s-web-service
+deployment_name = my-k8s-web
+Terraform Workflow (Most Important)
+terraform init
+
+↓
+
+terraform validate
+
+↓
+
+terraform fmt
+
+↓
+
+terraform plan
+
+↓
+
+terraform apply
+
+↓
+
+terraform show
+
+↓
+
+terraform destroy
+Terraform Files We Created
+terraform-k8s/
+│
+├── provider.tf      # Kubernetes provider configuration
+├── main.tf          # Deployment and Service resources
+├── variables.tf     # Input variables
+├── outputs.tf       # Output values
+├── .terraform/      # Provider plugins (created by init)
+└── terraform.tfstate # State file (created after apply)
