@@ -1,3 +1,3 @@
-replicas = 4
+replicas = 8
 
 image = "daniyaalabbas/my-k8s-web:latest"
