@@ -212,3 +212,5 @@ terraform-k8s/
 ├── outputs.tf       # Output values
 ├── .terraform/      # Provider plugins (created by init)
 └── terraform.tfstate # State file (created after apply)
+
+GitHub Actions CI test
