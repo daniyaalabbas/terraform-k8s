@@ -17,6 +17,23 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+        - name: Debug Workspace
+          run: |
+            echo "PWD:"
+               pwd
+              
+               echo "Workspace:"
+               echo "$GITHUB_WORKSPACE"
+
+               echo "Files:"
+               ls -la
+
+               echo "Terraform state:"
+               ls -la terraform.tfstate || echo "terraform.tfstate NOT FOUND"
+
+               echo "Terraform state list:"
+               terraform state list || true
+
       - name: Terraform Init
         run: terraform init
 
