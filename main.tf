@@ -4,7 +4,7 @@ resource "kubernetes_config_map" "app_config" {
   }
 
   data = {
-    APP_TITLE    = "🚀 Super Ai Enabled Resume Analyzer"
+    APP_TITLE    = "🚀 Super duper Ai Enabled Resume Analyzer"
     APP_SUBTITLE = "Terraform + Kubernetes Demo"
   }
 }
