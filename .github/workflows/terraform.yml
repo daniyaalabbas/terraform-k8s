@@ -1,4 +1,4 @@
-name: Terraform
+name: Terraform CI
 
 on:
   push:
@@ -10,18 +10,20 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
 
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Plan
         run: terraform plan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
