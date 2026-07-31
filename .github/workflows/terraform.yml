@@ -34,6 +34,15 @@ jobs:
           docker push daniyaalabbas/my-k8s-web:${{ github.sha }}
           docker push daniyaalabbas/my-k8s-web:latest
 
+      - name: Debug Runner
+        run: |
+          pwd
+          ls -la
+          git status
+          ls -la .terraform || true
+          ls -la terraform.tfstate || true 
+          terraform version
+
       - name: Terraform Init
         run: terraform init
 
